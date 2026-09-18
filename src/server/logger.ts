@@ -37,3 +37,26 @@ export function createLogRecord({
     ...(context ? { context } : {}),
   };
 }
+
+export function writeLog(
+  level: LogLevel,
+  event: string,
+  context?: LogContext,
+): void {
+  const record = createLogRecord(
+    context ? { level, event, context } : { level, event },
+  );
+  const line = JSON.stringify(record);
+
+  if (level === "error") {
+    console.error(line);
+    return;
+  }
+
+  if (level === "warn") {
+    console.warn(line);
+    return;
+  }
+
+  console.info(line);
+}
