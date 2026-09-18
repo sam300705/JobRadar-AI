@@ -9,8 +9,9 @@ const serverEnvSchema = z.object({
 });
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;
+export type ServerEnvInput = Readonly<Record<string, string | undefined>>;
 
-export function parseServerEnv(input: NodeJS.ProcessEnv): ServerEnv {
+export function parseServerEnv(input: ServerEnvInput): ServerEnv {
   return serverEnvSchema.parse({
     NODE_ENV: input.NODE_ENV,
     APP_URL: input.APP_URL,
