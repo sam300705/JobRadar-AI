@@ -59,3 +59,13 @@
 **Status:** Accepted
 **Decision:** Each phase has explicit acceptance criteria; failed critical gates block dependent phases.
 **Reason:** Prevents a polished shell over unreliable core intelligence.
+
+## ADR-013 — Keep the Next-compatible ESLint 9 toolchain until upstream plugins support ESLint 10
+**Status:** Accepted
+**Decision:** Keep `eslint-config-next@16.3.3` with the verified ESLint 9.39.x line for Phase 1. Do not suppress compatibility failures to force ESLint 10.
+**Reason:** A controlled ESLint 10.10.0 trial failed in the Next lint stack because transitive React/accessibility plugins still rely on ESLint 9-era APIs/peer ranges. The same repository passes lint on the ESLint 9 line. ESLint 9 is a development-only dependency; production dependency audit remains clean. Revisit when the Next lint dependency graph supports ESLint 10 end-to-end.
+
+## ADR-014 — Establish migrations before schema
+**Status:** Accepted
+**Decision:** Reserve `supabase/migrations/` as the forward-only migration path in Phase 1 without inventing a database schema before authentication/data requirements are implemented.
+**Reason:** This preserves reproducibility while avoiding speculative tables. Phase 2 will create the first real schema/RLS migration after the Supabase project is connected.
